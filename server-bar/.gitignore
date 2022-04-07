@@ -1,0 +1,9 @@
+# dependencise
+/node_modules/
+/ms.pem
+/build
+/.idea
+*.log
+yarn*
+.DS_Store
+src/config.json
