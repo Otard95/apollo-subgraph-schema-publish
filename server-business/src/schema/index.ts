@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server'
-import * as contract from '@/schema/bar'
+import * as contract from '@/schema/business'
 import { Resolvers } from '@/generated/graphql'
 
 // We want to be able to use `extend type` on Query and Mutation in our schemas.

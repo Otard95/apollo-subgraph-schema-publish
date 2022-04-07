@@ -7,7 +7,7 @@ import merge from 'lodash.merge'
 
 import { typeDefs, resolvers } from '@/schema'
 
-const port = process.env.PORT || 4200
+const port = process.env.PORT || 4300
 const app = express()
 const server = http.createServer(app)
 

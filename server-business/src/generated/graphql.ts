@@ -4,6 +4,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -14,20 +15,43 @@ export type Scalars = {
   _FieldSet: any;
 };
 
-export type Bar = {
-  __typename?: 'Bar';
+export type Business = {
+  __typename?: 'Business';
+  employees: Array<Person>;
   id: Scalars['ID'];
   name: Scalars['String'];
 };
 
+export type Person = {
+  __typename?: 'Person';
+  id: Scalars['ID'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  business?: Maybe<Business>;
+};
+
+
+export type QueryBusinessArgs = {
+  id: Scalars['ID'];
 };
 
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
+export type ReferenceResolver<TResult, TReference, TContext> = (
+      reference: TReference,
+      context: TContext,
+      info: GraphQLResolveInfo
+    ) => Promise<TResult> | TResult;
+
+      type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
+      type NullableCheck<T, S> = Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
+      type ListCheck<T, S> = T extends (infer U)[] ? NullableCheck<U, S>[] : GraphQLRecursivePick<T, S>;
+      export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
+    
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -93,32 +117,45 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Bar: ResolverTypeWrapper<Bar>;
+  Business: ResolverTypeWrapper<Business>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Person: ResolverTypeWrapper<Person>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Bar: Bar;
+  Business: Business;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  Person: Person;
   Query: {};
   Boolean: Scalars['Boolean'];
 };
 
-export type BarResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bar'] = ResolversParentTypes['Bar']> = {
+export type BusinessResolvers<ContextType = any, ParentType extends ResolversParentTypes['Business'] = ResolversParentTypes['Business']> = {
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Business']>, { __typename: 'Business' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  employees?: Resolver<Array<ResolversTypes['Person']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {};
+export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Person']>, { __typename: 'Person' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  business?: Resolver<Maybe<ResolversTypes['Business']>, ParentType, ContextType, RequireFields<QueryBusinessArgs, 'id'>>;
+};
 
 export type Resolvers<ContextType = any> = {
-  Bar?: BarResolvers<ContextType>;
+  Business?: BusinessResolvers<ContextType>;
+  Person?: PersonResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
 
