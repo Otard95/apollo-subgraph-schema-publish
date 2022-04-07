@@ -14,8 +14,8 @@ export type Scalars = {
   _FieldSet: any;
 };
 
-export type Foo = {
-  __typename?: 'Foo';
+export type Bar = {
+  __typename?: 'Bar';
   id: Scalars['ID'];
   name: Scalars['String'];
 };
@@ -93,7 +93,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Foo: ResolverTypeWrapper<Foo>;
+  Bar: ResolverTypeWrapper<Bar>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
@@ -102,14 +102,14 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Foo: Foo;
+  Bar: Bar;
   ID: Scalars['ID'];
   String: Scalars['String'];
   Query: {};
   Boolean: Scalars['Boolean'];
 };
 
-export type FooResolvers<ContextType = any, ParentType extends ResolversParentTypes['Foo'] = ResolversParentTypes['Foo']> = {
+export type BarResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bar'] = ResolversParentTypes['Bar']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -118,7 +118,7 @@ export type FooResolvers<ContextType = any, ParentType extends ResolversParentTy
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {};
 
 export type Resolvers<ContextType = any> = {
-  Foo?: FooResolvers<ContextType>;
+  Bar?: BarResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
 
