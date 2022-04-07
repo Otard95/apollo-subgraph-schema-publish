@@ -1,56 +1,51 @@
 {
-  "name": "apollo-subgraph-schema-publish",
+  "name": "gateway",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/index.ts",
+  "main": "index.js",
+  "license": "MIT",
   "engines": {
     "node": "16"
   },
   "scripts": {
-    "build": "rm -rf ./build && tsc && tsc-alias",
+    "build": "npm run clean && tsc -p . && npx tsc-alias",
     "build:watch": "tsc-watch --preserveWatchOutput --onSuccess \"tsc-alias\"",
     "start": "node build/index.js",
     "nodemon": "NODE_ENV=development nodemon --delay 0.5 --watch 'build/*' build/index.js",
     "dev": "clear ; npm run build ; concurrently \"npm:nodemon\" \"npm:build:watch\"",
-    "types": "graphql-codegen --config codegen.yml && echo \"Verifying types ...\" && tsc -p . --noEmit"
+    "clean": "del-cli build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@apollo/subgraph": "0.1.5",
-    "apollo-server": "3.5.0",
+    "@apollo/gateway": "0.44.1",
     "apollo-server-express": "3.5.0",
+    "apollo-server-plugin-operation-registry": "3.4.0",
+    "cors": "2.8.5",
     "dotenv": "8.2.0",
     "express": "4.17.1",
-    "graphql": "15.8.0",
-    "lodash.merge": "^4.6.2",
-    "node-fetch": "2.6.1"
+    "graphql": "15.7.2",
+    "graphql-scalars": "1.14.1",
+    "morgan": "1.10.0",
+    "ts-essentials": "7.0.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.3.1",
-    "@graphql-codegen/typescript": "2.4.2",
-    "@graphql-codegen/typescript-resolvers": "2.4.3",
-    "@playlyfe/gql": "2.6.2",
     "@types/dotenv": "8.2.0",
-    "@types/express": "4.17.0",
-    "@types/graphql": "14.2.3",
-    "@types/graphql-type-json": "0.3.2",
-    "@types/lodash.merge": "^4.6.6",
-    "@types/node": "16.11.7",
-    "@types/node-fetch": "2.5.1",
+    "@types/express": "4.17.13",
+    "@types/inquirer": "6.5.0",
+    "@types/lodash": "4.14.178",
+    "@types/morgan": "1.9.3",
+    "@types/node": "12.20.46",
+    "@types/node-fetch": "2.6.1",
     "@typescript-eslint/eslint-plugin": "4.13.0",
     "@typescript-eslint/parser": "4.13.0",
-    "concurrently": "5.3.0",
+    "concurrently": "^7.1.0",
+    "del-cli": "4.0.1",
     "eslint": "7.17.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-plugin-prettier": "3.3.1",
-    "nodemon": "1.19.0",
+    "inquirer": "7.3.3",
+    "lint-staged": "11.0.0",
+    "nodemon": "1.19.4",
     "prettier": "2.5.1",
-    "ts-jest": "24.2.0",
-    "ts-loader": "8.0.12",
-    "ts-node": "8.1.0",
-    "tsc-alias": "1.4.0",
+    "tsc-alias": "1.6.1",
     "tsc-watch": "4.5.0",
     "typescript": "4.5.4"
   },
@@ -83,5 +78,11 @@
     "arrowParens": "avoid",
     "printWidth": 80,
     "tabWidth": 2
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint"
+    ]
   }
 }

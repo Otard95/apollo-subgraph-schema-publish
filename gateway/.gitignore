@@ -1,0 +1,17 @@
+/node_modules/
+/apollo-server/
+*.pem
+/build/
+.vscode
+*.log
+/.dev-gateway-internal
+.DS_Store
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+yarn.lock
+.cache
+.env
+config.json
+dev-endpoints.json
