@@ -1,0 +1,13 @@
+$ ./publish.sh
+Publishing SDL to TestGraph-5g4zz@dev (subgraph: business) using credentials from the default profile.
+A new subgraph called 'business' for the 'TestGraph-5g4zz@dev' graph was created
+The gateway for the 'TestGraph-5g4zz@dev' graph was NOT updated with a new schema
+Monitor your schema delivery progresson on studio: https://studio.apollographql.com/graph/TestGraph-5g4zz/launches/5b47b2d0-5354-409c-90a3-a65f8e6ddf6e?var
+iant=dev
+WARN: The following build errors occurred:
+Encountered 5 build errors while trying to build the supergraph.
+UNKNOWN: Unknown type "Person".
+EXTENSION_WITH_NO_BASE: [business] Query -> `Query` is an extension type, but `Query` is not defined in any service
+UNKNOWN: Unknown type "Business".
+EXTENSION_WITH_NO_BASE: [business] Person -> `Person` is an extension type, but `Person` is not defined in any service
+UNKNOWN: Query root type must be provided.

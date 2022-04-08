@@ -1,0 +1,13 @@
+type Query {
+  business(id: ID!): Business
+}
+
+type Business @key(fields: "id") {
+  id: ID!
+  name: String!
+  employees: [Person!]!
+}
+
+extend type Person @key(fields: "id") {
+  id: ID! @external
+}
