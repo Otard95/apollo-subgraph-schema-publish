@@ -14,6 +14,8 @@ async function init() {
     process.exit(1)
   }
 
+  apollo.applyMiddleware({ app })
+
   app.listen({ port }, () => {
     console.log(
       `🚀 Server ready at http://localhost:${port}${apollo.graphqlPath}`
